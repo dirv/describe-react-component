@@ -16,3 +16,31 @@ We'll look at examples soon, but first let's go over the main principles.
  * Assertions are either against the container or against your spies.
  * There is only one type of test double: stubs. However, these stubs also act as spies.
  * Instead of shallow rendering, you stub out child components, just like you would stub out dependencies to functions or classes.
+
+
+## The output of a failed test
+
+
+```
+  ● MyComponent › does not render element with class 'testing' when component mounts
+
+    expect(received).toBeNull()
+
+    Received: <div class="testing"><b id="bold">test text</b></div>
+
+      16 |     .mounted()
+      17 |     .toNotRender(elementWithClass('testing'))
+    > 18 |     .asTest()
+         |      ^
+      19 | })
+      20 |
+
+      at spec/myComponent.spec.js:18:6
+      at Object.<anonymous> (spec/myComponent.spec.js:4:1)
+```
+
+## How to build
+
+    npm run build
+
+
