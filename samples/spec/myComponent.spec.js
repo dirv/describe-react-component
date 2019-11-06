@@ -1,19 +1,23 @@
-import { describeComponent, expectComponent, elementWithId, elementWithClass } from 'describe-react-component'
+import { describeReactComponent } from 'describe-react-component'
 import { MyComponent } from '../src/myComponent'
 
-describeComponent(MyComponent, () => {
-  expectComponent
-    .mounted()
-    .toRender(elementWithId('bold'))
-    .asTest()
+describeReactComponent(MyComponent, () => {
+  whenMounted(() => {
+    it("renders bold element", () => {
+      expect(elementWithId('bold')).not.toBeNull()
+    })
 
-  expectComponent
-    .mounted()
-    .toRender(elementWithClass('testing'))
-    .asTest()
+    it("renders testing element", () => {
+      expect(elementWithClass('testing')).not.toBeNull()
+    })
 
-  expectComponent
-    .mounted()
-    .toNotRender(elementWithClass('testing'))
-    .asTest()
+    it("does not render extra text", () => {
+      expect(container().textContent).not.toContain('extra stuff')
+    })
+
+    it("renders extra text if showExtra prop is true", () => {
+      mountWithProps({ showExtra: true })
+      expect(container().textContent).toContain('extra stuff')
+    })
+  })
 })
